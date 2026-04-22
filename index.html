@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VibeHusky.ai — Coming Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --uw-purple: #4B2E83;
+      --uw-purple-light: #6B4FA3;
+      --uw-gold: #B7A57A;
+      --bg: #0E0C12;
+      --surface: #16131F;
+      --border: rgba(107, 79, 163, 0.25);
+      --text: #F0EDF8;
+      --muted: #8B82A0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Background glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(75, 46, 131, 0.35) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -10%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(183, 165, 122, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Logo / mascot area */
+    .logo-area {
+      margin-bottom: 2.5rem;
+    }
+
+    .husky-icon {
+      font-size: 4.5rem;
+      display: block;
+      margin-bottom: 0.75rem;
+      animation: float 3.5s ease-in-out infinite;
+      filter: drop-shadow(0 0 24px rgba(107, 79, 163, 0.6));
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 0%, var(--uw-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .brand span {
+      background: linear-gradient(135deg, var(--uw-purple-light) 0%, #A78BFA 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(75, 46, 131, 0.2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #C4B5FD;
+      margin-bottom: 2rem;
+      letter-spacing: 0.04em;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #A78BFA;
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* Headline */
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+    }
+
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--uw-purple-light), #A78BFA, var(--uw-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 2.75rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .subtitle strong {
+      color: var(--uw-gold);
+      font-weight: 500;
+    }
+
+    /* Form card */
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(107, 79, 163, 0.3);
+      border-radius: 10px;
+      padding: 0.85rem 1.1rem;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input[type="email"]:focus,
+    input[type="tel"]:focus {
+      border-color: var(--uw-purple-light);
+      box-shadow: 0 0 0 3px rgba(107, 79, 163, 0.15);
+    }
+
+    input::placeholder {
+      color: var(--muted);
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      background: linear-gradient(135deg, var(--uw-purple), var(--uw-purple-light));
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.9rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      letter-spacing: 0.01em;
+    }
+
+    button[type="submit"]:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(0);
+    }
+
+    .form-note {
+      font-size: 0.78rem !important;
+      color: #5a5270 !important;
+      margin-top: 0.75rem;
+      margin-bottom: 0 !important;
+    }
+
+    /* Features */
+    .features {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .feature-dot {
+      width: 5px;
+      height: 5px;
+      background: var(--uw-gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .social-link:hover {
+      color: #C4B5FD;
+    }
+
+    .social-link svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .divider {
+      color: #2e2a38;
+      font-size: 0.8rem;
+    }
+
+    .uw-tag {
+      font-size: 0.78rem;
+      color: #5a5270;
+    }
+
+    .uw-tag span {
+      color: var(--uw-gold);
+    }
+
+    /* Thank you state */
+    .thank-you {
+      display: none;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .thank-you .check {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .thank-you p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .thank-you strong {
+      color: #C4B5FD;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="logo-area">
+      <span class="husky-icon">🐺</span>
+      <div class="brand">Vibe<span>Husky</span>.ai</div>
+    </div>
+
+    <div class="badge">Coming Soon</div>
+
+    <h1>Your business deserves<br /><em>a video that converts.</em></h1>
+
+    <p class="subtitle">
+      AI-powered video ads for <strong>Seattle restaurants, hotels & local shops</strong> —
+      at a fraction of traditional production cost. Fast turnaround. Real results.
+    </p>
+
+    <div class="form-card">
+      <p>Be the first to know when we launch. Leave your info and we'll reach out.</p>
+
+      <form id="notify-form" action="https://formspree.io/f/mdaywypz" method="POST">
+        <div class="input-group">
+          <input type="email" name="email" placeholder="Your email address" required />
+          <input type="tel" name="phone" placeholder="Your phone number (optional)" />
+          <input type="hidden" name="_subject" value="New VibeHusky.ai inquiry" />
+        </div>
+        <button type="submit">Notify Me at Launch →</button>
+        <p class="form-note">No spam. Just one message when we go live.</p>
+      </form>
+
+      <div class="thank-you" id="thank-you">
+        <div class="check">✅</div>
+        <p>You're on the list! <strong>We'll be in touch soon.</strong></p>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="feature"><span class="feature-dot"></span>30–60 second AI video ads</div>
+      <div class="feature"><span class="feature-dot"></span>Quick turnaround</div>
+      <div class="feature"><span class="feature-dot"></span>Social-ready formats</div>
+      <div class="feature"><span class="feature-dot"></span>Seattle-focused</div>
+    </div>
+
+    <div class="footer">
+      <a class="social-link" href="https://www.instagram.com/vibehusky.ai/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+        @vibehusky.ai
+      </a>
+      <span class="divider">·</span>
+      <a class="social-link" href="mailto:lixinghao2001@gmail.com">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+        Contact
+      </a>
+      <span class="divider">·</span>
+      <span class="uw-tag">Built by a <span>UW Husky</span> 🐾</span>
+    </div>
+
+  </div>
+
+  <script>
+    const form = document.getElementById('notify-form');
+    const thankYou = document.getElementById('thank-you');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          thankYou.style.display = 'block';
+        } else {
+          alert('Something went wrong. Please email us directly at lixinghao2001@gmail.com');
+        }
+      } catch {
+        alert('Something went wrong. Please email us directly at lixinghao2001@gmail.com');
+      }
+    });
+  </script>
+</body>
+</html>
